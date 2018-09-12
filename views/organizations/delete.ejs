@@ -1,0 +1,8 @@
+<% include ../partials/header %>
+<h2>Are <em>absolutely</em> sure you want to delete your Profile?</h2>
+<p>This will not delete the events you created, but your profile will no longer be connected to them</p>
+<form action="/organizations/<%=organization._id%>?_method=DELETE" method="POST">
+	<button class="btn btn-danger">I said delete!</button>
+</form>	
+
+<% include ../partials/footer %>

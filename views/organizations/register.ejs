@@ -1,0 +1,24 @@
+
+<% include ../partials/header %>
+<h1>Create your Organizations Page</h1>
+
+<form class="form-group" action="/organizations/register" method="POST">
+	<h2>Login Info</h2>
+	<input class="form-control" required="true" type="text" placeholder ="username" name="username">
+	<input class="form-control" type="password" name="password" required="true" placeholder="password"><small class="form-text text-muted">Write down your password. Email password reset will be available in the next version of this site :)</small>
+	<h2>Contact Info</h2>
+	<input class="form-control" required="true" type="email" placeholder ="email" name="email">
+	<input class="form-control" required="true"type="text" placeholder ="phone" name="phone">
+	<h2>Address</h2>
+	<input type="text" required="true" class="form-control" name="address" placeholder ="street address">
+	<input type="text" required="true" class="form-control" name="city" placeholder ="city">
+	<input type="text" required="true" class="form-control" name="state" placeholder ="state">
+	<input type="text" required="true" class="form-control" name="zip" placeholder ="zip">
+	<h2>Biography</h2>
+	<input class="form-control" type="text" name="photo" placeholder="photo url">
+	<textarea class="form-control" name="mission" placeholder ="mission" rows=2></textarea>
+	<textarea class="form-control" name="bio" placeholder ="bio" rows=5></textarea>
+<input class="btn btn-success btn-lg" type="submit" value="Signup!">
+</form>
+
+<% include ../partials/footer %>

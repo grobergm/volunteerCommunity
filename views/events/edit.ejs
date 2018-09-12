@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+<h1>Edit <%event.name%></h1>
+
+<form action="/events/<%=event._id%>?_method=PUT" method="POST">
+	<div class="form-group">
+		<input class="form-control" type="text" placeholder="Event Name" name="name" required="true" value="<%=event.name%>">
+		<input class="form-control" type="date" required="true" name="date" placeholder ="date">
+		<input class="form-control" type="time" required="true" name="time" placeholder ="time">
+		<input class="form-control" type="number" step="0.25" required="true" name="hours"placeholder ="hours" value="<%=event.hours%>">
+		<textarea class="form-control" name="description" placeholder ="description" rows=2><%=event.description%></textarea>
+		<button class="btn btn-lg btn-warning">Update Event</button>
+	</div>
+</form>
+<!-- participants -->
+<%if(event.participants.length>0){%>
+	<h1>Volunteers</h1>
+	<%event.participants.forEach((vol)=>{ %>
+		<div class="col">
+			<div class="card" style="width: 18rem;">
+		  		<img class="card-img-top" style="height:13rem" src="<%=vol.photo%>" alt="no photo">
+		  	<div class="card-body vol">
+			    <h5 class="card-title"><%=vol.username%></h5>
+			    <p class="card-text"><%=vol.goal%></p>
+			    <a href="/volunteers/<%=vol._id%>" class="btn btn-primary">View Profile</a>
+			    <a class="btn btn-danger" href="/events/<%=event._id%>/<%=vol._id%>/remove">Remove Volunteer</a>
+			</div>
+		</div>	
+		</div>		
+	<%});%>
+<%}%>
+<%if(event.skills.length>0){%>
+<form action="/events/<%=event._id%>/remove_skill?_method=PUT" method="POST">
+	<select>
+		<%event.skills.forEach(skill=>{%>
+		<option><%=skill%></option>
+		<%});%>
+	</select>
+		<button class="btn btn-danger">Remove Skill</button>
+</form>
+<%}%>
+
+<% include ../partials/footer %>

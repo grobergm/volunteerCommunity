@@ -1,0 +1,35 @@
+
+<% include ../partials/header %>
+<h1>Edit Profile for <%=organization.username%></h1>
+
+<form class="form-group" action="/organizations/<%=organization._id%>?_method=PUT" method="POST">	<h2>Login Info</h2>
+	<input class="form-control" required="true" type="text" placeholder ="username" name="username" value="<%=organization.username%>">
+	<h2>Contact Info</h2>
+	<input class="form-control" required="true" type="email" placeholder ="email" name="email" value="<%=organization.email%>">
+	<input class="form-control" type="text" placeholder ="phone" name="phone" value="<%=organization.phone%>">
+	<h2>Address</h2>
+	<input type="text" class="form-control" name="address" placeholder ="street address" value="<%=organization.address%>">
+	<input type="text" class="form-control" name="city" placeholder ="city" value="<%=organization.city%>">
+	<input type="text" class="form-control" name="state" placeholder ="state" value="<%=organization.state%>">
+	<input type="text" class="form-control" name="zip" placeholder ="zip" value="<%=organization.zip%>">
+	<h2>Biography</h2>
+	<input class="form-control" type="text" name="photo" placeholder="photo url" value="<%=organization.photo%>">
+	<textarea class="form-control" name="mission" placeholder ="mission" rows=2><%=organization.mission%></textarea>
+	<textarea class="form-control" name="bio" placeholder ="bio" rows=5><%=organization.bio%></textarea>
+<input class="btn btn-warning" type="submit" value="Update Profile">
+</form>
+<%if(organization.skills.length>0){%>
+<form action="/organizations/<%=organization._id%>/remove_skill?_method=PUT" method="POST">
+	<select>
+		<%organization.skills.forEach(skill=>{%>
+		<option><%=skill%></option>
+		<%});%>
+	</select>
+		<button class="btn btn-danger">Remove Skill</button>
+</form>
+<%}%>
+
+<a class="btn btn-danger" href="/organizations/<%=organization._id%>/delete">Delete This Profile</a>
+
+
+<% include ../partials/footer %>

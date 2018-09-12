@@ -1,0 +1,34 @@
+
+<% include ../partials/header %>
+<h1>Edit Profile</h1>
+
+<form class="form-group" action="/volunteers/<%=volunteer._id%>?_method=PUT" method="POST">
+	<h2>Login Info</h2>
+	<input class="form-control" required="true" type="text" placeholder ="username" name="username"value="<%=volunteer.username%>">
+	
+	<h2>Contact Info</h2>
+	<input class="form-control" type="email" placeholder ="email" name="email"value="<%=volunteer.email%>">
+	<input class="form-control" type="text" placeholder ="phone" name="phone"value="<%=volunteer.phone%>">
+	<small class="form-text text-muted">Your contact info will only be shared with organizations that you are volunteering for</small>
+	<h2>Biography</h2>
+	<input type="text" required="true" class="form-control" name="first" placeholder ="first name"value="<%=volunteer.first%>">
+	<input type="text" required="true" class="form-control" name="last" placeholder ="last name"value="<%=volunteer.last%>">
+	<input type="text" required="true" class="form-control" name="zip" placeholder ="zip code"value="<%=volunteer.zip%>">
+	
+	<input class="form-control" type="text" name="photo" placeholder="photo url"value="<%=volunteer.photo%>">
+	<textarea class="form-control" name="goal" placeholder="main volunteering goal" rows=2><%=volunteer.goal%></textarea>
+	<textarea class="form-control" name="bio" placeholder ="describe yourself" rows=5><%=volunteer.bio%></textarea>
+	<label>Gender
+	<select name="gender">
+		<option></option>
+		<option>Female</option>
+		<option>Male</option>
+		<option>Other</option>
+	</select>
+	</label>
+	<label>Birthday<input type="date" name="birthday"></label>
+<div><input class="btn btn-warning btn-large" type="submit" value="Update"></div>
+</form>
+
+<a class="btn btn-danger" href="/volunteers/<%=volunteer._id%>/delete">Delete This Profile</a>
+<% include ../partials/footer %>

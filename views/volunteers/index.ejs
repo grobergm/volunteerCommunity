@@ -1,0 +1,30 @@
+<% include ../partials/header%>	
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  	<h1 class="display-4">Volunteers</h1>
+  		<form class="form-group" action ="/volunteers/login" method="POST">
+			<input class="form-control" type="text" name="username" placeholder="username">
+			<input class="form-control" type="password" name="password" placeholder="password">
+			<div class="btn-group">
+			<input class=" form-control btn btn-primary btn-lg" type="submit" value="Login">
+			<a class="btn btn-success btn-lg" href="/volunteers/register">Sign up</a></div>
+		</form>	
+	</div>   
+ </div>
+<div class="container">
+	<div class="row">
+		<%volunteers.forEach(function(vol){%>
+			<div class="card" style="width: 18rem;">
+				<%if(vol.photo){%>
+			  	<img class="card-img-top" style="height:13rem" src="<%=vol.photo%>" alt="no photo">
+			  	<%}%>
+			  	<div class="card-body vol">
+				    <h5 class="card-title"><%=vol.first%> <%=vol.last%></h5>
+				    <p class="card-text"><%=vol.goal%></p>
+				    <a href="/volunteers/<%=vol._id%>" class="btn btn-primary">View Profile</a>
+		 		</div>
+			</div>	
+		<%});%>
+	</div>
+</div>
+<% include ../partials/footer%>

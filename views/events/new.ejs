@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+<%console.log(time);%>
+<h1>New Event for <%=organization.username%></h1>
+<h3>Event Description</h3>
+<!-- not working -->
+<form action="/events" method="POST">
+	<div class="form-group">
+		<input class="form-control" type="text" placeholder="Event Name" name="name" required="true">
+		<input class="form-control" type="date" required="true" name="date" placeholder ="date" value="<%=fullDate%>">
+		<input class="form-control" type="time" required="true" name="time" placeholder ="time" value="<%=time%>">
+		<input class="form-control" type="number" step="0.25" required="true" name="hours"placeholder ="hours">
+		<textarea class="form-control" name="description" placeholder ="description" rows=2></textarea>
+		<button class="btn btn-lg btn-primary">Create Event</button>
+	</div>
+</form>
+
+
+
+<% include ../partials/footer %>

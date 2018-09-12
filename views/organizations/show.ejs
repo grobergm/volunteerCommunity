@@ -1,0 +1,66 @@
+
+<% include ../partials/header %>
+	<div class="jumbotron jumbotron-fluid">
+	    <h1 class="display-4"><%=organization.username%></h1>
+	    <p class="lead"><%=organization.mission%></p>
+	    <h4>Contact info</h4>
+	    <p><%=organization.phone%>  <%=organization.email%></p>
+	    <p><%=organization.address%>, <%=organization.city%>, <%=organization.state%>, <%=organization.zip%></p>
+
+	    <%if(currentUser&&currentUser._id.equals(organization._id)){%>
+	    	<div>
+	    	<a class="btn btn-warning" href="/organizations/<%=organization._id%>/edit">Edit Profile</a>
+	    	</div>
+			<%};%>
+	 </div>
+
+	<div class="container">
+		<img class="myCover" src="<%=organization.photo%>">
+	</div>
+		<div class="content">
+			<p><%=organization.bio%></p>
+			<div class="row">
+	    		<div class="col">
+	    			<h1>Skills</h1>
+	    			<%if(currentUser&&currentUser._id.equals(organization._id)){%>
+					<form action="/organizations/<%=organization._id%>/skills" method="POST">	
+						<input type="text" name="skill" placeholder="Add a new skill">
+						<button class="btn btn-lg btn-success">Add Skill</button>
+					</form>
+					<%};%>
+	    		<%organization.skills.forEach(skill=> {%>
+					<%=skill%>, 
+				<%});%>
+    		</div>
+		</div>
+		<div class="content">
+			<div style="padding-top: 10px" class="container">
+				<h1>Summary of Events</h1>
+				<%if(currentUser&&currentUser._id.equals(organization._id)){%>
+				<a class="btn btn-lg btn-success" href="/events/new">Create an Event</a>
+				<%};%>
+
+					<div class="row justify-content-md-center">
+					<%for (var key in summaryObj){%>
+						<div class="col-md-auto">
+						<h2><%=key%></h2>
+						<hr>
+						<%summaryObj[key].forEach(month_=>{%>							
+						<h4><strong><%=month_.month%></strong> <%=month_.total%> Hours</h4>	
+							<%month_.volunteers.forEach(volunteer=>{%>
+							<div class="col">
+							<%=volunteer.vol%>: <strong><%=volunteer.hours+' hours'%></strong>
+							</div>
+							<%});%>
+							<%month_.activities.forEach(activity=>{%>
+							<a class="btn btn-primary" href="/events/<%=activity.id%>"><%= month_.month+' ' +activity.date%><br><%=activity.name%></a>
+							<%});%>
+							<hr>
+							<!-- same thing for skills -->							
+						<%});%>
+						</div>
+					<%}%>	
+					</div>
+			</div>
+		</div>
+<% include ../partials/footer %>

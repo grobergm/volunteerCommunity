@@ -1,0 +1,31 @@
+<% include ../partials/header%>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  	<h1 class="display-4">Organizations</h1>
+  		<form class="form-group" action ="/organizations/login" method="POST">
+			<input class="form-control" type="text" name="username" placeholder="username">
+			<input class="form-control" type="password" name="password" placeholder="password">
+			<div class="btn-group">
+			<input class=" form-control btn btn-primary btn-lg" type="submit" value="Login">
+			<a class="btn btn-success btn-lg" href="/organizations/register">Sign up</a></div>
+		</form>	
+	</div>   
+ </div>
+  	
+<div class="container">
+	<div class="row">
+		<%organizations.forEach(function(org){%>
+		<div class="card" style="width: 18rem;">
+			<%if(org.photo){%>
+		  	<img class="card-img-top" style="height:13rem" src="<%=org.photo%>" alt="no photo">
+		  	<%}%>
+		  	<div class="card-body org">
+			    <h5 class="card-title"><%=org.username%></h5>
+			    <p class="card-text"><%=org.mission%></p>
+			    <a href="/organizations/<%=org._id%>" class="btn btn-primary">View Profile</a>
+	 		</div>
+		</div>
+		<%})%>
+	</div>
+</div>
+<% include ../partials/footer%>

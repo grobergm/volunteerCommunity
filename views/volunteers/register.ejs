@@ -1,0 +1,33 @@
+
+<% include ../partials/header %>
+<h1>Create your Volunteer Profile</h1>
+
+<form class="form-group" action="/volunteers/register" method="POST">
+	<h2>Login Info</h2>
+	<input class="form-control" required="true" type="text" placeholder ="username" name="username">
+	<input class="form-control" type="password" name="password" required="true" placeholder="password"><small class="form-text text-muted">Write down your password. I don't know how to email a reset yet :)</small>
+	<h2>Contact Info</h2>
+	<input class="form-control" type="email" placeholder ="email" name="email">
+	<input class="form-control" type="text" placeholder ="phone" name="phone">
+	<small class="form-text text-muted">Your contact info will only be shared with organizations that you are volunteering for</small>
+	<h2>Biography</h2>
+	<input type="text" required="true" class="form-control" name="first" placeholder ="first name">
+	<input type="text" required="true" class="form-control" name="last" placeholder ="last name">
+	<input type="text" required="true" class="form-control" name="zip" placeholder ="zip code">
+	
+	<input class="form-control" type="text" name="photo" placeholder="photo url">
+	<textarea class="form-control" name="goal" placeholder="main volunteering goal" rows=2></textarea>
+	<textarea class="form-control" name="bio" placeholder ="describe yourself" rows=5></textarea>
+	<label>Gender
+	<select name="gender">
+		<option></option>
+		<option>Female</option>
+		<option>Male</option>
+		<option>Other</option>
+	</select>
+	</label>
+	<label>Birthday<input type="date" name="birthday"></label>
+<div><input class="btn btn-success btn-large" type="submit" value="Signup!"></div>
+</form>
+
+<% include ../partials/footer %>

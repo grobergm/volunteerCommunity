@@ -1,0 +1,95 @@
+<% include ../partials/header %>
+
+<div class="jumbotron jumbotron-fluid">
+	<div class="row">
+		<div class="col-md-auto">
+			<h1 class="display-4"><%=event.name%></h1>
+		    <h2><%=event.date.toDateString()%>-<%=time
+		    %></h2>
+		    <h3><%=event.hours%> Hours</h3>
+		    <p class="lead"><%=event.description%></p>
+		    <h1>Skills</h1>	
+				<%event.skills.forEach(skill=> {%>
+				<div class="col">
+					<h5><%=skill%></h5>
+				</div>
+				<%});%>	
+
+		<%if(currentUser){
+    		if(currentUser.userType=='volunteers'&&!event.volunteerIdStrings.includes(currentUser._id.toString())){%>
+		    <form action="/events/<%=event._id%>" method="POST">
+				<button class="btn btn-lg btn-success">Sign Up NOW!</button>
+			</form>
+		<%} if(currentUser._id.equals(event.hostId._id)){%>
+		<div class="form-group">
+		<form action="/events/<%=event._id%>/skills" method="POST">
+			<select name="skill">
+				<% event.hostId.skills.forEach(skill=>{%>
+				<option><%=skill%></option>	
+				<%})%>
+			</select>
+			<button class="btn btn-lg btn-primary">Add Skill</button>
+		</form>
+		
+		</div>
+		
+		<a class="btn btn-lg btn-warning" href="/events/<%=event._id%>/edit">Edit Event</a>
+			<form id="deleteForm" action="/events/<%=event._id%>?_method=DELETE" method="POST">
+				<button class="btn btn-lg btn-danger">Delete Event</button>
+			</form>
+		<%}};%>
+
+		</div>
+
+		<div class="col">
+			<%if(event.hostId){%>
+				<div class="card" style="width: 18rem;">
+					<%if(event.hostId.photo){%>
+				  	<img class="card-img-top" style="height:13rem" src="<%=event.hostId.photo%>" alt="no photo">
+				  	<%}%>
+			  		<div class="card-body org">
+					    <h5 class="card-title">Host:<%=event.hostId.username%></h5>
+					    <p class="card-text"><%=event.hostId.mission%></p>
+					    <a href="/organizations/<%=event.hostId._id%>" class="btn btn-primary">View Profile</a>
+		 			</div>
+				</div>
+			<%};%>
+		</div>
+	</div>
+	
+</div>
+
+		
+	
+</div>
+		<h1>Volunteers</h1>
+		<div class="row">	
+			<%event.participants.forEach((vol)=>{ %>
+				<div class="card" style="width: 18rem;">
+				<%if(vol.photo){%>
+			  	<img class="card-img-top" style="height:13rem" src="<%=vol.photo%>" alt="no photo">
+			  	<%}%>
+			  	<div class="card-body vol">
+				    <h5 class="card-title"><%=vol.first%> <%=vol.last%></h5>
+				    <p class="card-text"><%=vol.goal%></p>
+				    <%if(currentUser&&currentUser._id.equals(event.hostId._id)){%>
+				    <h5>Contact Info</h5>
+				    <p><%=vol.email%></p>
+    				<p><%=vol.phone%></p>
+    				<%}%>
+				    <%if(currentUser&&currentUser._id.equals(vol._id)){%>
+				    <a class="btn btn-danger" href="/events/<%=event._id%>/<%=vol._id%>/remove">Remove Me</a><%}%>
+				    <a href="/volunteers/<%=vol._id%>" class="btn btn-primary">View Profile</a>
+				    
+		 		</div>
+			</div>		
+			<%});%>
+		</div>
+		
+
+
+
+
+
+
+<% include ../partials/footer %>

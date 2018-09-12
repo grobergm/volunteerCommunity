@@ -1,0 +1,70 @@
+
+<% include ../partials/header %>
+<%console.log(skillSummaryObj)%>
+<div class="jumbotron jumbotron-fluid">
+    <h1 class="display-4"><%=volunteer.first%> <%=volunteer.last%></h1>
+    <h5><%=volunteer.gender%></h5>
+    <%if(volunteer.birthday){%>
+    <h4><%=Math.floor((Date.now()-volunteer.birthday)/(1000 * 60 * 60 * 24 *365))%> years old</h4>
+    <%}%>
+    <p class="lead"><%=volunteer.goal%></p>
+    <%if(currentUser&&currentUser._id.equals(volunteer._id)){%>
+		<a class="btn btn-warning" href="/volunteers/<%=volunteer._id%>/edit">Edit Profile</a>
+		<%};%>
+ </div>
+	<img class="myCover" src="<%=volunteer.photo%>">
+	
+	<div class="container content col">
+		<p><%=volunteer.bio%></p>
+		<h1>Summary of Volunteer Experience</h1>
+			<div class="row justify-content-md-center">
+				<%console.log(skillSummaryObj)%>
+				<%for(var org in skillSummaryObj){%>
+					
+					<div class="col">
+
+						<a class="btn btn-primary btn-lg" href="/organizations/<%=skillSummaryObj[org].id%>"><%=org%></a>
+						<%skillSummaryObj[org].skills.forEach(skill=>{%>
+						<div class="col">
+							<h5><%=skill%></h5>
+						</div>
+						<%});%>
+					</div>
+			
+				<%}%>
+			</div>
+		<h1>Summary of Events</h1>
+			<div class="row justify-content-md-center">
+				
+				<%for (var year in summaryObj){%>
+					<div class="col-md-auto">
+						<h2><%=year%></h2>
+						<hr>
+						<%summaryObj[year].forEach(month_=>{%>							
+						<h4><strong><%=month_.month%></strong> <%=month_.total%> Hours</h4>
+						
+						<div class="row">
+						<%for(var org in month_.organizations){%>	
+							<div class="col">
+								<h5><strong><%=org%></strong></h5>
+								
+								<%month_.organizations[org].forEach(event=>{%>
+								<a class="btn btn-primary" href="/events/<%=event.id%>"><%= month_.month+' ' +event.date%><br><%=event.name%></a>
+								<%});%>
+							</div>		
+								<%}%>	
+							
+						</div>	
+						
+						<hr>
+						<%});%>
+					</div>
+				<%}%>	
+			</div>
+	</div>
+	
+			</div>
+		</div>
+
+	
+<% include ../partials/footer %>
